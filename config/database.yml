@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  database: controle_de_ponto_development
+  encoding: unicode
+  port: 5432
+  host: 127.0.0.1
+
+test: &test
+  adapter: postgresql
+  database: controle_de_ponto_test
+  encoding: unicode
+  port: 5432
+  host: 127.0.0.1
+
+production:
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>

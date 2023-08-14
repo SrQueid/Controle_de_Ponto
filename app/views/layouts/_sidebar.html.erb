@@ -1,0 +1,69 @@
+<div id="sidebar" class="sidebar responsive" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
+	<ul class="nav nav-list" style="top: 0px;">
+
+		<li class="active open">
+			<a href="#" >
+				<i class="menu-icon fa fa-list"></i>
+				<span class="menu-text"> Registros </span>
+
+				<b class="arrow fa fa-angle-down"></b>
+			</a>
+
+			<b class="arrow"></b>
+
+			<ul class="submenu">
+				<li class="<%= 'active' if current_page?(day_records_path) || current_page?(authenticated_root_path) %>">
+          <%= link_to day_records_path do %>
+            <i class="menu-icon fa fa-caret-right"></i>
+            Relatório
+          <% end %>
+
+					<b class="arrow"></b>
+				</li>
+
+				<li class="<%= 'active' if current_page?(new_day_record_path) %>">
+          <%= link_to new_day_record_path do %>
+            <i class="menu-icon fa fa-caret-right"></i>
+            Novo Registro
+          <% end %>
+
+					<b class="arrow"></b>
+				</li>
+			</ul>
+		</li>
+		<li class="active open">
+			<a href="#" >
+				<i class="menu-icon fa fa-archive"></i>
+				<span class="menu-text"> Fechamentos </span>
+
+				<b class="arrow fa fa-angle-down"></b>
+			</a>
+
+			<b class="arrow"></b>
+
+			<ul class="submenu">
+				<li class="<%= 'active' if current_page?(closures_path) %>">
+          <%= link_to closures_path do %>
+            <i class="menu-icon fa fa-caret-right"></i>
+            Listar
+          <% end %>
+
+					<b class="arrow"></b>
+				</li>
+
+				<li class="<%= 'active' if current_page?(new_closure_path) %>">
+          <%= link_to new_closure_path do %>
+            <i class="menu-icon fa fa-caret-right"></i>
+            Novo Fechamento
+          <% end %>
+
+					<b class="arrow"></b>
+				</li>
+			</ul>
+		</li>
+	</ul><!-- /.nav-list -->
+	<div class="navbar-footer">
+		<%= render 'accounts/sidebar_widget', account_presenter: account_presenter %>
+	</div>
+
+</div>

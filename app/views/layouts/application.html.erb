@@ -1,0 +1,23 @@
+<%= render partial: 'layouts/header' %>
+
+<div class="main-container" id="main-container">
+  <%= render 'layouts/sidebar', account_presenter: @account_presenter %>
+  <div class="main-content">
+    <div class="main-content-inner">
+			</div>
+      <div class="page-content">
+        <%= render 'layouts/flash_messages' %>
+        <div class="page-header">
+          <%= yield :page_header %>
+    		</div>
+        <div class="row">
+          <div class="col-xs-12" >
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

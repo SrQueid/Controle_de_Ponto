@@ -1,0 +1,111 @@
+<div role="tabpanel" class="account-pane tab-pane <%= 'active' if f.object == f.object.user.try(:current_account) %>" id="acc-<%= f.object.id %>">
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Nome</label>
+    <div class="col-sm-9">
+      <%= link_to_remove_association '<span class="text-danger"> <i class="fa fa-trash fa-3x"></i></span>'.html_safe, f, class: 'pull-right col-xs-2 col-sm-1',
+        wrapper_class: 'account-pane', data: { confirm: t('helpers.links.account_confirm') } %>
+      <div class="input-medium">
+        <div class="input-group">
+          <%= f.input_field :name, required: true %>
+          <%= f.full_error :name, class: 'text-danger' %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date"><%= t "account.#{f.object.type}.workload" %></label>
+
+    <div class="col-sm-9">
+      <div class="input-medium">
+        <div class="input-group">
+          <%= f.input_field :workload, as: :string, required: true, class: 'timepicker', value: format_seconds_to_time(f.object.workload) %>
+          <span class="input-group-addon">
+            <i class="ace-icon fa fa-clock-o"></i>
+          </span>
+          <%= f.full_error :workload, class: 'text-danger' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if f.object.class == SelfEmployedAccount %>
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date"><%= t "account.#{f.object.type}.hourly_rate" %></label>
+
+    <div class="col-sm-9">
+      <div class="input-medium">
+        <div class="input-group">
+          <div class="input-group-addon">R$</div>
+          <%= f.input_field :hourly_rate, value: number_with_precision(f.object.hourly_rate, separator: ",", delimiter: ".", precision: 2), class: 'input-money' %>
+          <%= f.full_error :hourly_rate, class: 'text-danger' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% if f.object.class == CltWorkerAccount %>
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Tempo médio de Almoço</label>
+
+    <div class="col-sm-9">
+      <div class="input-medium">
+        <div class="input-group">
+          <%= f.input_field :lunch_time, as: :string, class: 'timepicker', value: format_seconds_to_time(f.object.lunch_time)%>
+          <span class="input-group-addon">
+            <i class="ace-icon fa fa-clock-o"></i>
+          </span>
+          <%= f.full_error :lunch_time, class: 'text-danger' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Avisar quando forem trabalhadas mais de 6 horas consecutivas (Art. 71): </label>
+
+    <div class="col-sm-9 top-10">
+      <div class="input-medium">
+          <%= f.input_field :warn_straight_hours, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_straight_hours == true, checked_value: 'true', unchecked_value: 'false'  %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Avisar quando forem trabalhadas mais de 2 horas extras (Art. 59): </label>
+
+    <div class="col-sm-9 top-10">
+      <div class="input-medium">
+        <%= f.input_field :warn_overtime, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_overtime == true, checked_value: 'true', unchecked_value: 'false'  %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Recomendar próxima entrada para não realizar menos de 11 horas consecutivas de descanso (Art. 66): </label>
+
+    <div class="col-sm-9 top-10">
+      <div class="input-medium">
+        <%= f.input_field :warn_rest_period, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_rest_period == true, checked_value: 'true', unchecked_value: 'false'  %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Tempo de Tolerância</label>
+
+    <div class="col-sm-9">
+      <div class="input-medium">
+        <div class="input-group">
+          <%= f.input_field :allowance_time, as: :string, class: 'timepicker', value: format_seconds_to_time(f.object.allowance_time) %>
+          <span class="input-group-addon">
+            <i class="ace-icon fa fa-clock-o"></i>
+          </span>
+          <%= f.full_error :allowance_time, class: 'text-danger' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <%= f.input :type, as: :hidden, value: f.object.class %>
+</div>

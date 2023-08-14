@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meu Controle de Ponto</title>
+  <%= render partial: 'shared/favicons' %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <% yield :page_styles %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'ajax_update' %>
+  <%= csrf_meta_tags %>
+</head>
+<body class ="no-skin">
+<div id="navbar" class="navbar navbar-default">
+
+			<div class="navbar-container" id="navbar-container">
+
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<div class="navbar-header pull-left">
+					<a href="/" class="navbar-brand">
+            <small>
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-calendar-o fa-stack-2x"></i>
+
+                <i class="fa fa-clock-o" style="right: 6px; bottom: 3px; position: absolute;"></i>
+              </span>
+            </small>
+							Meu Controle de Ponto
+					</a>
+				</div>
+
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+          <li class="green">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false">
+                <span class="badge badge-success"><%= current_user.current_account.name %></span>
+                <i class="fa fa-retweet fa-2x"></i>
+              </a>
+
+              <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                <li class="dropdown-header">
+                  Selecione a conta para trocar
+                </li>
+
+                <li class="dropdown-content">
+                  <ul class="dropdown-menu dropdown-navbar">
+                    <% current_user.accounts.each do |account| %>
+                      <li>
+                        <%= link_to change_current_account_path(account.id), method: :patch do %>
+
+                          <p class="text-center lead account-chooser-item">
+                            <% if account == current_user.current_account %>
+                              <i class="fa fa-check text-success"></i>
+                            <% end %>
+                            <%= account.name %>
+                          </p>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+
+                <li class="dropdown-footer">
+                  <%= link_to edit_user_registration_path do %>
+                    <i class="ace-icon fa fa-cog"></i>
+                    Ir para <b>Configurações</b>
+                  <% end %>                                    
+                </li>
+              </ul>
+            </li>
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<span class="user-info">
+									<small>Olá,</small>
+									<%= current_user.first_name %>
+								</span>
+
+								<i class="ace-icon fa fa-caret-down"></i>
+							</a>
+
+							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+                  <%= link_to edit_user_registration_path do %>
+										<i class="ace-icon fa fa-cog"></i>
+										Configurações
+                  <% end %>
+								</li>
+
+								<li class="divider"></li>
+
+								<li>
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+										<i class="ace-icon fa fa-power-off"></i>
+										Logout
+                  <% end %>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div><!-- /.navbar-container -->
+		</div>
